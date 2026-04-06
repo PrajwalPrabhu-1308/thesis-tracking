@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thesis Revision Checklist — Prajwal Prabhu</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --surface2: #F0EDE6;
+    --border: #E2DDD6;
+    --border2: #CCC8BF;
+    --text: #1A1714;
+    --text2: #6B6560;
+    --text3: #9B9590;
+    --accent: #1D9E75;
+    --accent-light: #E1F5EE;
+    --accent-dark: #0F6E56;
+    --e1: #185FA5;
+    --e1-bg: #E6F1FB;
+    --e2: #3C3489;
+    --e2-bg: #EEEDFE;
+    --e3: #854F0B;
+    --e3-bg: #FAEEDA;
+    --all: #A32D2D;
+    --all-bg: #FCEBEB;
+    --week1: #0F6E56;
+    --week1-bg: #E1F5EE;
+    --week2: #185FA5;
+    --week2-bg: #E6F1FB;
+    --week3: #533FAB;
+    --week3-bg: #EEEDFE;
+    --radius: 6px;
+    --radius-lg: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 0 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 0 var(--border);
+  }
+
+  .header-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .title-block h1 {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .title-block p {
+    font-size: 13px;
+    color: var(--text2);
+    margin-top: 3px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 22px;
+    font-weight: 500;
+    display: block;
+    line-height: 1;
+  }
+
+  .stat-num.green { color: var(--accent); }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 3px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .stat-sep {
+    width: 1px;
+    height: 36px;
+    background: var(--border);
+  }
+
+  .progress-track {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 0;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 0;
+    margin-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .tab {
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text2);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.15s;
+    white-space: nowrap;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .tab:hover { color: var(--text); }
+
+  .tab.active {
+    color: var(--text);
+    border-bottom-color: var(--accent);
+    font-weight: 500;
+  }
+
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .section {
+    margin-bottom: 2rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    flex: 1;
+  }
+
+  .section-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text3);
+  }
+
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.1s;
+    border-radius: 0;
+  }
+
+  .item:last-child { border-bottom: none; }
+
+  .item:hover { background: var(--surface2); margin: 0 -12px; padding-left: 12px; padding-right: 12px; border-radius: var(--radius); }
+
+  .cb {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1.5px solid var(--border2);
+    background: var(--surface);
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .cb.checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .cb svg { display: none; }
+  .cb.checked svg { display: block; }
+
+  .item-body { flex: 1; min-width: 0; }
+
+  .item-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  .item-text.done {
+    text-decoration: line-through;
+    color: var(--text3);
+  }
+
+  .item-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 5px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 3px;
+    letter-spacing: 0.03em;
+  }
+
+  .b-e1 { background: var(--e1-bg); color: var(--e1); }
+  .b-e2 { background: var(--e2-bg); color: var(--e2); }
+  .b-e3 { background: var(--e3-bg); color: var(--e3); }
+  .b-all { background: var(--all-bg); color: var(--all); }
+  .b-w1 { background: var(--week1-bg); color: var(--week1); }
+  .b-w2 { background: var(--week2-bg); color: var(--week2); }
+  .b-w3 { background: var(--week3-bg); color: var(--week3); }
+
+  .last-updated {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--text3);
+  }
+
+  .reset-btn {
+    font-size: 12px;
+    color: var(--text3);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 4px 12px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+    margin-left: auto;
+  }
+
+  .reset-btn:hover {
+    color: var(--all);
+    border-color: var(--all);
+  }
+
+  .empty {
+    padding: 2rem;
+    text-align: center;
+    color: var(--text3);
+    font-size: 14px;
+  }
+
+  @media (max-width: 600px) {
+    .header-inner { padding: 0 1rem; }
+    .main { padding: 1.25rem 1rem; }
+    .stats-row { gap: 1rem; }
+    .tab { padding: 10px 12px; font-size: 12px; }
+    .title-block h1 { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="title-block">
+        <h1>Thesis Revision Checklist</h1>
+        <p>Prajwal Prabhu · SA in Construction · 3-week plan</p>
+      </div>
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-num" id="s-total">0</span>
+          <span class="stat-label">Total</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat">
+          <span class="stat-num green" id="s-done">0</span>
+          <span class="stat-label">Done</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat">
+          <span class="stat-num" id="s-left">0</span>
+          <span class="stat-label">Left</span>
+        </div>
+        <button class="reset-btn" onclick="resetAll()">Reset</button>
+      </div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="prog" style="width:0%"></div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('all',this)">All tasks</button>
+      <button class="tab" onclick="showTab('e1',this)">Examiner 1</button>
+      <button class="tab" onclick="showTab('e2',this)">Examiner 2</button>
+      <button class="tab" onclick="showTab('e3',this)">Examiner 3</button>
+      <button class="tab" onclick="showTab('week',this)">By week</button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div id="tab-all" class="panel active"></div>
+  <div id="tab-e1" class="panel"></div>
+  <div id="tab-e2" class="panel"></div>
+  <div id="tab-e3" class="panel"></div>
+  <div id="tab-week" class="panel"></div>
+</main>
+
+<script>
+const STORAGE_KEY = 'thesis_checklist_prajwal_v1';
+
+const sections = [
+  {
+    title: "Conceptual & definitions",
+    items: [
+      { id: "c1", text: "Write one crisp SA definition (perception, comprehension, projection) and apply it globally across all chapters", ex: ["all"], week: 1 },
+      { id: "c2", text: "Distinguish SA clearly from shared mental models, coordination, communication, and performance throughout", ex: ["e1","e3"], week: 1 },
+      { id: "c3", text: "Decide on the Performance dimension — either write a 300-word justification for keeping it or restructure it as an outcome variable", ex: ["e1","e3"], week: 1 },
+      { id: "c4", text: "Add a comparative table: Endsley vs Distributed SA (Stanton) vs Your Framework — showing gaps each addresses", ex: ["e3"], week: 1 },
+      { id: "c5", text: "Add explicit paragraph explaining how your framework differs from distributed cognition (Hutchins)", ex: ["e3"], week: 1 },
+      { id: "c6", text: "Clarify the boundary between Sharing dimension and team cognition/sensemaking — reduce conceptual overlap", ex: ["e1"], week: 1 },
+    ]
+  },
+  {
+    title: "Literature & theoretical framing",
+    items: [
+      { id: "l1", text: "Engage explicitly with Stanton & Walker distributed SA literature (2–3 paragraphs of critical engagement)", ex: ["e1"], week: 1 },
+      { id: "l2", text: "Add Safety-II and resilience engineering (Hollnagel, Weick & Sutcliffe) engagement — explain what your work adds beyond these", ex: ["e1"], week: 1 },
+      { id: "l3", text: "Add temporal dynamics discussion: how SA in construction (months/years) differs from aviation/military (seconds/minutes)", ex: ["e2"], week: 1 },
+      { id: "l4", text: "Add explicit research gap statement at end of Chapter 2", ex: ["e3"], week: 1 },
+      { id: "l5", text: "Reframe the gap as underdeveloped/fragmented, not completely absent — acknowledge prior work on SA in construction", ex: ["e1"], week: 1 },
+      { id: "l6", text: "Develop the lean construction (Ballard & Koskela Last Planner) + SA link more explicitly if retained", ex: ["e1"], week: 2 },
+      { id: "l7", text: "Strengthen critique of SAGAT and SART measurement tools with more recent evaluations of their limitations", ex: ["e1"], week: 2 },
+      { id: "l8", text: "Integrate safety science perspectives — human error theory, systems-based accident models", ex: ["e1"], week: 2 },
+    ]
+  },
+  {
+    title: "Methodology & data analysis",
+    items: [
+      { id: "m1", text: "Add a research design diagram (research onion style per Saunders et al. 2016) to Chapter 3", ex: ["e3"], week: 2 },
+      { id: "m2", text: "Define population, sampling criteria, and sampling method explicitly in Chapter 3", ex: ["e3"], week: 2 },
+      { id: "m3", text: "Rewrite hypotheses as formal Null and Alternative with independent/dependent variables stated", ex: ["e3"], week: 2 },
+      { id: "m4", text: "Add Cronbach's alpha reliability testing for collected data", ex: ["e3"], week: 2 },
+      { id: "m5", text: "Add explicit justification for using recall questionnaires as proxies for SA — explain what they capture and why direct methods weren't feasible", ex: ["e1","e3"], week: 2 },
+      { id: "m6", text: "Address order effects — acknowledge randomisation limitation and discuss how it was or wasn't corrected", ex: ["e3"], week: 2 },
+      { id: "m7", text: "Discuss internal validity threats: sequential interventions, learning effects, confirmation bias", ex: ["e1","e3"], week: 2 },
+      { id: "m8", text: "Add sensitivity analysis discussion for DSM output", ex: ["e3"], week: 2 },
+      { id: "m9", text: "Defend p=0.053 explicitly — discuss what marginal significance means in your exploratory context", ex: ["e3"], week: 2 },
+      { id: "m10", text: "Explain why regression or causal modelling was not attempted — frame as a limitation or future work", ex: ["e3"], week: 2 },
+    ]
+  },
+  {
+    title: "Claims, language & narrative",
+    items: [
+      { id: "n1", text: "Replace all 'significant improvement in SA' with associative language: 'associated with improved awareness indicators'", ex: ["all"], week: 2 },
+      { id: "n2", text: "Reframe theoretical contribution as integrative application, not novel breakthrough, throughout thesis", ex: ["all"], week: 2 },
+      { id: "n3", text: "Replace 'not studied' language with 'insufficiently studied' or 'underdeveloped' throughout", ex: ["e1"], week: 2 },
+      { id: "n4", text: "Add explicit generalisability limitations — small samples, convenience samples, single-organisation contexts", ex: ["e1","e3"], week: 3 },
+      { id: "n5", text: "Reduce circular reasoning: where improved communication is both intervention AND evidence of SA — disentangle these", ex: ["e1"], week: 3 },
+      { id: "n6", text: "Reduce verbosity and repetition throughout — particularly excessive hedging like 'suggests', 'indicates'", ex: ["e3"], week: 3 },
+      { id: "n7", text: "Reframe Chapter 4 conclusions to reflect perceived/indicative findings only — tone down performance improvement claims", ex: ["e3"], week: 3 },
+    ]
+  },
+  {
+    title: "Framework operationalisation",
+    items: [
+      { id: "f1", text: "Add summary table mapping each of the 6 dimensions to specific, measurable indicators and methods", ex: ["e1","e3"], week: 2 },
+      { id: "f2", text: "Create a unified process diagram showing how information flows across the six SA dimensions", ex: ["e1"], week: 2 },
+      { id: "f3", text: "Add structured contribution table: Research Aim → Problem → Questions → Objectives → Methods → Findings → Theory → Contribution", ex: ["e3"], week: 2 },
+    ]
+  },
+  {
+    title: "Visuals & structure",
+    items: [
+      { id: "v1", text: "Add flow diagram connecting all 7 studies — show how each builds on findings from the previous", ex: ["e2"], week: 3 },
+      { id: "v2", text: "Add schematics at key synthesis points throughout thesis to aid first-time reader comprehension", ex: ["e2"], week: 3 },
+      { id: "v3", text: "Split Chapter 4 (Results) into multiple chapters aligned to research steps", ex: ["e3"], week: 3 },
+      { id: "v4", text: "Add a specific problem statement section with research gap table in Chapter 1", ex: ["e3"], week: 3 },
+      { id: "v5", text: "Add hypothesis mapping in Chapter 1 to justify study perspective", ex: ["e3"], week: 3 },
+    ]
+  },
+  {
+    title: "Final polish",
+    items: [
+      { id: "p1", text: "Thorough proofread — grammar, spelling, formatting consistency", ex: ["e2"], week: 3 },
+      { id: "p2", text: "Ensure SA definition is consistent — not shifting across chapters", ex: ["e3"], week: 3 },
+      { id: "p3", text: "Add impact discussion of listed limitations on study findings in final chapter", ex: ["e3"], week: 3 },
+      { id: "p4", text: "Prepare Viva opening statement framing contribution as integrative + applied", ex: ["all"], week: 3 },
+    ]
+  }
+];
+
+let state = {};
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) state = JSON.parse(saved);
+  } catch(e) {}
+  sections.forEach(sec => sec.items.forEach(item => {
+    if (state[item.id] === undefined) state[item.id] = false;
+  }));
+}
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+function allItems() {
+  return sections.flatMap(s => s.items);
+}
+
+function updateStats() {
+  const items = allItems();
+  const total = items.length;
+  const done = items.filter(i => state[i.id]).length;
+  document.getElementById('s-total').textContent = total;
+  document.getElementById('s-done').textContent = done;
+  document.getElementById('s-left').textContent = total - done;
+  document.getElementById('prog').style.width = Math.round(done / total * 100) + '%';
+}
+
+function toggle(id) {
+  state[id] = !state[id];
+  saveState();
+  document.querySelectorAll(`[data-id="${id}"]`).forEach(el => {
+    const cb = el.querySelector('.cb');
+    const txt = el.querySelector('.item-text');
+    cb.classList.toggle('checked', state[id]);
+    txt.classList.toggle('done', state[id]);
+  });
+  updateStats();
+  updateSectionCounts();
+}
+
+function updateSectionCounts() {
+  document.querySelectorAll('.section-count').forEach(el => {
+    const secId = el.dataset.sec;
+    const sec = sections.find(s => s.title === secId);
+    if (!sec) return;
+    const done = sec.items.filter(i => state[i.id]).length;
+    el.textContent = done + '/' + sec.items.length;
+  });
+}
+
+function badgeHTML(examiners) {
+  return examiners.map(e => {
+    if (e === 'all') return `<span class="badge b-all">All examiners</span>`;
+    if (e === 'e1') return `<span class="badge b-e1">Examiner 1</span>`;
+    if (e === 'e2') return `<span class="badge b-e2">Examiner 2</span>`;
+    if (e === 'e3') return `<span class="badge b-e3">Examiner 3</span>`;
+  }).join('');
+}
+
+function weekBadge(w) {
+  return `<span class="badge b-w${w}">Week ${w}</span>`;
+}
+
+function itemHTML(item) {
+  const checked = state[item.id];
+  return `<div class="item" data-id="${item.id}" onclick="toggle('${item.id}')">
+    <div class="cb ${checked ? 'checked' : ''}">
+      <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="item-body">
+      <div class="item-text ${checked ? 'done' : ''}">${item.text}</div>
+      <div class="item-meta">${badgeHTML(item.ex)}${weekBadge(item.week)}</div>
+    </div>
+  </div>`;
+}
+
+function sectionHTML(sec, items) {
+  if (!items.length) return '';
+  const done = items.filter(i => state[i.id]).length;
+  return `<div class="section">
+    <div class="section-header">
+      <div class="section-title">${sec.title || sec}</div>
+      <div class="section-count" data-sec="${sec.title || sec}">${done}/${items.length}</div>
+    </div>
+    ${items.map(itemHTML).join('')}
+  </div>`;
+}
+
+function renderPanel(id, filter) {
+  const panel = document.getElementById(id);
+  let html = '';
+  if (filter === 'week') {
+    [1,2,3].forEach(w => {
+      const items = allItems().filter(i => i.week === w);
+      html += sectionHTML({ title: `Week ${w}` }, items);
+    });
+  } else {
+    sections.forEach(sec => {
+      const items = filter
+        ? sec.items.filter(i => i.ex.includes(filter) || i.ex.includes('all'))
+        : sec.items;
+      html += sectionHTML(sec, items);
+    });
+  }
+  panel.innerHTML = html || '<div class="empty">No tasks in this view.</div>';
+}
+
+function showTab(tab, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  const panel = document.getElementById('tab-' + tab);
+  panel.classList.add('active');
+  const filterMap = { all: null, e1: 'e1', e2: 'e2', e3: 'e3', week: 'week' };
+  renderPanel('tab-' + tab, filterMap[tab]);
+  updateSectionCounts();
+}
+
+function resetAll() {
+  if (!confirm('Reset all checkboxes? This cannot be undone.')) return;
+  allItems().forEach(i => state[i.id] = false);
+  saveState();
+  ['all','e1','e2','e3','week'].forEach(t => {
+    const filterMap = { all: null, e1: 'e1', e2: 'e2', e3: 'e3', week: 'week' };
+    renderPanel('tab-' + t, filterMap[t]);
+  });
+  updateStats();
+  updateSectionCounts();
+}
+
+loadState();
+['all','e1','e2','e3','week'].forEach(t => {
+  const filterMap = { all: null, e1: 'e1', e2: 'e2', e3: 'e3', week: 'week' };
+  renderPanel('tab-' + t, filterMap[t]);
+});
+updateStats();
+updateSectionCounts();
+</script>
+</body>
+</html>
